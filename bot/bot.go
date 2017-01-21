@@ -170,7 +170,7 @@ func (m *MusicAPI) onMessage(message *tgbotapi.Message) {
 func (m *MusicAPI) Start() {
 	m.waitGroup.Add(1)
 	go func() {
-		m.echo.Start(m.appConfig.HTTPBindAddr)
+		m.echo.StartAutoTLS(m.appConfig.HTTPBindAddr)
 		m.waitGroup.Done()
 	}()
 	m.waitGroup.Add(1)
