@@ -13,6 +13,7 @@ import (
 	youtube "google.golang.org/api/youtube/v3"
 
 	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 	"github.com/maddevsio/musicbot/config"
 	"github.com/rylio/ytdl"
 	"gopkg.in/telegram-bot-api.v4"
@@ -57,6 +58,7 @@ func NewBotAPI(conf *config.MusicBotConfig) (*MusicAPI, error) {
 		return nil, err
 	}
 	a.bot = bot
+	a.echo.Use(middleware.Logger())
 	a.echo.POST("/", a.HandleBot)
 	a.echo.GET(a.botAPIURL, a.HandleBot)
 	a.echo.POST(a.botAPIURL, a.HandleBot)
@@ -170,7 +172,7 @@ func (m *MusicAPI) onMessage(message *tgbotapi.Message) {
 func (m *MusicAPI) Start() {
 	m.waitGroup.Add(1)
 	go func() {
-		m.echo.StartAutoTLS(m.appConfig.HTTPBindAddr)
+		m.echo.Start(m.appConfig.HTTPBindAddr)
 		m.waitGroup.Done()
 	}()
 	m.waitGroup.Add(1)
