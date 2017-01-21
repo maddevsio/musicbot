@@ -1,0 +1,15 @@
+package: github.com/maddevsio/musicbot
+import:
+- package: github.com/gen1us2k/log
+- package: github.com/labstack/echo
+- package: github.com/rylio/ytdl
+- package: github.com/urfave/cli
+- package: google.golang.org/api
+  subpackages:
+  - googleapi/transport
+  - youtube/v3
+- package: gopkg.in/telegram-bot-api.v4
+testImport:
+- package: github.com/stretchr/testify
+  subpackages:
+  - assert
